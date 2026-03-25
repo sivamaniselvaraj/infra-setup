@@ -1,3 +1,4 @@
+## execute the below comments in command prompt or terminal
 # Order Service
 git clone https://github.com/sivamaniselvaraj/order_service.git
 cd order_service
@@ -20,8 +21,18 @@ cd notification
 mvn clean package
 docker build -t notification-service .
 
+
 # infra-setup
 https://github.com/sivamaniselvaraj/infra-setup.git
 cd infra-setup
 ## Run
 docker compose up
+
+# UI
+https://github.com/sivamaniselvaraj/order-ui.git
+cd order-ui
+
+## Run
+docker build -t angular-docker-image .
+
+docker run -p 8080:80 angular-docker-image 

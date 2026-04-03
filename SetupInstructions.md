@@ -21,6 +21,13 @@ cd notification
 mvn clean package
 docker build -t notification-service .
 
+# Product Service
+git clone https://github.com/sivamaniselvaraj/productservice.git
+cd ProductService
+## Run
+mvn clean package
+docker build -t product-service .
+
 
 # infra-setup
 https://github.com/sivamaniselvaraj/infra-setup.git
@@ -33,6 +40,16 @@ https://github.com/sivamaniselvaraj/order-ui.git
 cd order-ui
 
 ## Run
-docker build -t angular-docker-image .
 
-docker run -p 8080:80 angular-docker-image 
+# npm run build
+
+docker build -t angular-docker-image .
+or
+npm run docker-build
+
+# Remove the stopped container
+docker rm order-ui
+
+docker run --name order-ui -p 8080:80 angular-docker-image
+or 
+npm run docker-run

@@ -168,10 +168,39 @@ services:
         condition: service_healthy # This makes 'app' wait until 'db' is healthy
     # notification service ends
 #notification Service & Database Config Ends
+#product service & database config starts
+  #product database starts
+  product-mysql:
+    image: mysql:8
+    hostname: product-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_product
+      MYSQL_PASSWORD: root
+    ports:
+      - "3309:3309"
+    volumes:
+      - product-mysql_data:/var/lib/mysql
+  #product database ends
+  #product service starts
+  product-service:
+    build: .
+    container_name: product-service
+    image: product-service:latest
+    ports:
+      - "8084:8084"
+    depends_on:
+      - product-mysql
+    #      - kafka_order
+    environment:
+      - USE_SYSTEM_CA_CERTS=1
+    #product service ends
+#product service & database config starts
 volumes:
   kafka_data:
   order-mysql_data:
   processing-mysql_data:
   notification-mysql_data:
+  product-mysql_data:
     #external: true
 #Order Service Ends
